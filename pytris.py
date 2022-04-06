@@ -1,5 +1,5 @@
-from tempfile import TemporaryFile
-import pygame, random
+import pygame, random, os
+from datetime import datetime
 
 colors = [
     (0, 0, 0),
@@ -127,6 +127,24 @@ class Tetris:
         if self.intersects():
             self.figure.rotation = old_rotation
 
+def save_score(gamescore):
+    scorefilecheck = os.path.exists('saved_score.txt')
+    now = datetime.now()
+    current_time = now.strftime('%H:%M:%S: ')
+    if scorefilecheck == False:
+        with open('saved_score.txt', 'w') as file:
+            file.write(str(current_time))
+            file.write(str(gamescore))
+            file.write(" Points")
+            file.close()
+    else:
+        with open('saved_score.txt', 'a') as file:
+            file.write('\n')
+            file.write(str(current_time))
+            file.write(str(gamescore))
+            file.write(" Points")
+            file.close()
+
 pygame.init()
 
 BLACK = (0, 0, 0)
@@ -216,4 +234,5 @@ while not done:
     pygame.display.flip()
     clock.tick(fps)
 
+save_score(game.score)
 pygame.quit()
