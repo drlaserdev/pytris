@@ -1,3 +1,4 @@
+from tempfile import TemporaryFile
 import pygame, random
 
 colors = [
@@ -126,7 +127,6 @@ class Tetris:
         if self.intersects():
             self.figure.rotation = old_rotation
 
-
 pygame.init()
 
 BLACK = (0, 0, 0)
@@ -135,9 +135,12 @@ GRAY = (128, 128, 128)
 
 size = (400, 500)
 screen = pygame.display.set_mode(size)
-icon = pygame.image.load('icon.png')
+try:
+    icon = pygame.image.load('icon.png')
+    pygame.display.set_icon(icon)
+except FileNotFoundError:
+    print("Error: Icon file missing or script is running from different directory")
 
-pygame.display.set_icon(icon)
 pygame.display.set_caption("Pytris")
 
 done = False
