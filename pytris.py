@@ -127,6 +127,13 @@ class Tetris:
         if self.intersects():
             self.figure.rotation = old_rotation
 
+class DeezNuts(Exception):
+    def __init__(self, message = "Activated Secret Key Combination That Raises a Custom Exception Error"):
+        self.message = message
+
+    def __str__(self):
+        return self.message
+
 def save_score(gamescore):
     scorefilecheck = os.path.exists('saved_score.txt')
     now = datetime.now()
@@ -196,6 +203,8 @@ while not done:
                 game.go_space()
             if event.key == pygame.K_ESCAPE:
                 game.__init__(20, 10)
+            if event.key == pygame.K_h and pygame.key.get_mods() & pygame.KMOD_RSHIFT:
+                raise DeezNuts()
 
     if event.type == pygame.KEYUP:
             if event.key == pygame.K_DOWN:
@@ -224,7 +233,7 @@ while not done:
     font1 = pygame.font.SysFont('comicsans', 35, True, False)
     text = font.render("Your Score: " + str(game.score), True, BLACK)
     text_game_over = font1.render("Game Over!", True, (3, 127, 252))
-    text_game_over1 = font1.render("Press ESC to restart", True, (152, 3, 252))
+    text_game_over1 = font1.render("Press ESC to restart", True, (255, 134, 28))
 
     screen.blit(text, [0, 0])
     if game.state == "gameover":
