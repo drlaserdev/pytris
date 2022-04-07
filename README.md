@@ -5,7 +5,10 @@ A simple tetris inspired game written in Python with PyGame. Made as a school pr
 - PyGame
 ## Installing and Playing
 Install PyGame:
-```pip install pygame```
-------------------------
+```
+pip install pygame
+```
 Run the script and play:
-```python3 pytris.py```
+```
+python3 pytris.py
+```
